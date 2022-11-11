@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    ports:
+      - 1433:1433
+    volumes:
+      - sql_data:/var/lib/mssqlql/data
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "pw1_2fas2211"
+      MSSQL_PID: Developer
+
+volumes:
+  sql_data:
