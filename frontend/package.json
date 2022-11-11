@@ -1,0 +1,60 @@
+{
+  "name": "silky-soft-ware",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.11",
+    "@chakra-ui/react": "^2.3.7",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "chakra-react-select": "^4.4.0",
+    "color": "^4.2.3",
+    "framer-motion": "^7.6.5",
+    "query-string": "^7.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-file-icon": "^1.2.0",
+    "react-icons": "^4.6.0",
+    "react-router-dom": "^6.4.3",
+    "use-resize-observer": "^9.0.2",
+    "web-vitals": "^3.0.4"
+  },
+  "scripts": {
+    "start": "npm run runtime-config && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "runtime-config": "cross-env RUNTIME_CONFIGURATION_FILE=public/runtime-config.js sh generate-spa-runtime-configuration.sh"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.3",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "@types/react-file-icon": "^1.0.1",
+    "@types/react-pdf": "^5.7.3",
+    "cross-env": "^7.0.3",
+    "date-fns": "^2.29.3",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.7.1",
+    "react-scripts": "^5.0.1",
+    "typescript": "^4.8.4"
+  }
+}
