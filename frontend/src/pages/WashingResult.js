@@ -48,7 +48,7 @@ export const WashingResult = () => {
 
   return (
     <Box padding={3}>
-      <Heading>sens-o-wash information:</Heading>
+      <Heading size="lg">sens-o-wash information:</Heading>
       <TableContainer>
         <Table variant="simple" w="100%">
           <Tbody>
@@ -67,7 +67,7 @@ export const WashingResult = () => {
           </Tbody>
         </Table>
       </TableContainer>
-      <Heading>Washed Items:</Heading>
+      <Heading size="lg">Washed Items:</Heading>
       <List>
         <ListItem>
           {tags?.map((i, idx) => {
@@ -109,6 +109,24 @@ export const WashingResult = () => {
               </Box>
             );
           })}
+          <ListItem>
+            <Box>
+              <Stack bg="gray.100" padding={5} marginY={1} borderRadius={8}>
+                <Flex direction="row">
+                  <ListIcon alignSelf="center" as={GiTheaterCurtains} />
+                  <Text w="56px">curtain</Text>
+                  <Text w="95px" fontWeight="bold">
+                    #319d12
+                  </Text>
+                  <Spacer />
+                  <Text>
+                    Wash cycles: <b>6 ❌</b>
+                  </Text>
+                </Flex>
+                <Text>* Item was washed to hot</Text>
+              </Stack>
+            </Box>
+          </ListItem>
         </ListItem>
       </List>
     </Box>

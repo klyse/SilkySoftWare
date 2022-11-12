@@ -17,12 +17,7 @@ import Wash from "../assets/Waschen_30.svg";
 import Dry from "../assets/Trommeltrocknen_1.svg";
 import Bleach from "../assets/Nicht_bleichen_v2.svg";
 import Iron from "../assets/Nicht_bügeln.svg";
-import {
-  Tbody,
-  Tr,
-  Td,
-  TableContainer,
-} from "@chakra-ui/react";
+import { Tbody, Tr, Td, TableContainer } from "@chakra-ui/react";
 
 export const Details = () => {
   const navigate = useNavigate();
@@ -47,7 +42,7 @@ export const Details = () => {
     <Box padding={3}>
       {!page2 && (
         <>
-          <Heading>Textile Information</Heading>
+          <Heading size="lg">Textile Information</Heading>
           <TableContainer>
             <Table variant="striped" w="100%">
               <Tbody>
@@ -73,11 +68,15 @@ export const Details = () => {
                 </Tr>
                 <Tr>
                   <Td>Customer:</Td>
-                  <Td><Input placeholder={tag?.values.customer}/></Td>
+                  <Td>
+                    <Input placeholder={tag?.values.customer} />
+                  </Td>
                 </Tr>
                 <Tr>
                   <Td>Article Nr.:</Td>
-                  <Td><Input placeholder={tag?.values.article_nr}/></Td>
+                  <Td>
+                    <Input placeholder={tag?.values.article_nr} />
+                  </Td>
                 </Tr>
                 <Tr>
                   <Td>Article Type.:</Td>
@@ -93,8 +92,8 @@ export const Details = () => {
             </Table>
           </TableContainer>
           <Stack>
-            <Text>Cleaning details:</Text>
-            <HStack bg="gray.200" padding={1} borderRadius={5}>
+            <Text paddingTop={3}>Cleaning details:</Text>
+            <HStack bg="gray.100" padding={1} borderRadius={5}>
               <Image src={Wash} w="50px" />
               <Image src={Dry} w="50px" />
               <Image src={Bleach} w="50px" />
@@ -105,7 +104,7 @@ export const Details = () => {
       )}
       {page2 && (
         <Stack>
-          <Heading>Textile Location</Heading>
+          <Heading size="lg">Textile Location</Heading>
           <HStack>
             <Text w="100%">Building:</Text>
             <Input placeholder="Building 14a" />
@@ -115,7 +114,7 @@ export const Details = () => {
             <Input placeholder="42" />
           </HStack>
           <Stack>
-            <Text>Position:</Text>
+            <Text>Position on window:</Text>
             <HStack h="150px">
               <Box
                 h="100%"
@@ -161,12 +160,12 @@ export const Details = () => {
             colorScheme="blue"
             onClick={() => {
               fetch(`http://172.20.10.2:5001/tags/${tag?.id}`, {
-                method: 'PATCH',
+                method: "PATCH",
                 body: JSON.stringify({
-                    "customer": "Customer 1"
+                  customer: "Customer 1",
                 }),
                 headers: {
-                  'Content-type': 'application/json; charset=UTF-8',
+                  "Content-type": "application/json; charset=UTF-8",
                 },
               });
               navigate("/StartWashingMachine");
