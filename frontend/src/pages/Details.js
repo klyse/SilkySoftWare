@@ -1,11 +1,13 @@
 import {
   Box,
   Button,
+  Heading,
   HStack,
   Image,
   Input,
   Select,
   Stack,
+  Table,
   Text,
   useBoolean,
 } from "@chakra-ui/react";
@@ -15,6 +17,16 @@ import Wash from "../assets/Waschen_30.svg";
 import Dry from "../assets/Trommeltrocknen_1.svg";
 import Bleach from "../assets/Nicht_bleichen_v2.svg";
 import Iron from "../assets/Nicht_bügeln.svg";
+import {
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
 
 export const Details = () => {
   const navigate = useNavigate();
@@ -38,27 +50,52 @@ export const Details = () => {
   return (
     <Box padding={3}>
       {!page2 && (
-        <Stack>
-          <HStack>
-            <Text width="100%">Id:</Text>
-            <Text>{tag?.id}</Text>
-          </HStack>
-          <HStack>
-            <Text width="100%">Production Year:</Text>
-            <Text>{tag?.year}</Text>
-          </HStack>
-          <HStack>
-            <Text>Supplier:</Text>
-            <Text width="100%" textAlign="right">
-              {tag?.supplier}
-            </Text>
-          </HStack>
-          <HStack>
-            <Text>Product Nr.:</Text>
-            <Text width="100%" textAlign="right">
-              {tag?.product_nr}
-            </Text>
-          </HStack>
+        <>
+          <Heading>Textile Information</Heading>
+          <TableContainer>
+            <Table variant="striped" w="100%">
+              <Tbody>
+                <Tr>
+                  <Td>Id:</Td>
+                  <Td>{tag?.id}</Td>
+                </Tr>
+                <Tr>
+                  <Td>Production Year:</Td>
+                  <Td>{tag?.year}</Td>
+                </Tr>
+                <Tr>
+                  <Td>Supplier:</Td>
+                  <Td>{tag?.supplier}</Td>
+                </Tr>
+                <Tr>
+                  <Td>Product Nr.:</Td>
+                  <Td>{tag?.product_nr}</Td>
+                </Tr>
+                <Tr>
+                  <Td>Material:</Td>
+                  <Td>{tag?.material}</Td>
+                </Tr>
+                <Tr>
+                  <Td>Customer:</Td>
+                  <Td>{tag?.customer}</Td>
+                </Tr>
+                <Tr>
+                  <Td>Article Nr.:</Td>
+                  <Td>{tag?.article_nr}</Td>
+                </Tr>
+                <Tr>
+                  <Td>Article Type.:</Td>
+                  <Td>
+                    <Select>
+                      <option>Curtain</option>
+                      <option>Pillow</option>
+                      <option>Blanket</option>
+                    </Select>
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
           <Stack>
             <Text>Cleaning details:</Text>
             <HStack bg="gray.200" padding={1} borderRadius={5}>
@@ -68,32 +105,11 @@ export const Details = () => {
               <Image src={Iron} w="50px" />
             </HStack>
           </Stack>
-          <HStack>
-            <Text>Material:</Text>
-            <Text w="100%" textAlign="right">
-              {tag?.material}
-            </Text>
-          </HStack>
-          <HStack>
-            <Text w="100%">Customer:</Text>
-            <Input placeholder={tag?.customer} />
-          </HStack>
-          <HStack>
-            <Text w="100%">Article Nr:</Text>
-            <Input placeholder={tag?.article_nr} />
-          </HStack>
-          <HStack>
-            <Text w="100%">Article Type:</Text>
-            <Select>
-              <option>Curtain</option>
-              <option>Pillow</option>
-              <option>Blanket</option>
-            </Select>
-          </HStack>
-        </Stack>
+        </>
       )}
       {page2 && (
         <Stack>
+          <Heading>Textile Location</Heading>
           <HStack>
             <Text w="100%">Building:</Text>
             <Input placeholder="Building 14a" />
@@ -140,15 +156,26 @@ export const Details = () => {
         </Button>
       )}
       {page2 && (
-        <Button
-          marginY={4}
-          position={"absolute"}
-          right={4}
-          colorScheme="blue"
-          onClick={() => navigate("/StartWashingMachine")}
-        >
-          Save
-        </Button>
+        <>
+          <Button
+            marginY={4}
+            position={"absolute"}
+            left={4}
+            colorScheme="blue"
+            onClick={() => setPage2.off()}
+          >
+            Back
+          </Button>
+          <Button
+            marginY={4}
+            position={"absolute"}
+            right={4}
+            colorScheme="blue"
+            onClick={() => navigate("/StartWashingMachine")}
+          >
+            Save
+          </Button>
+        </>
       )}
     </Box>
   );

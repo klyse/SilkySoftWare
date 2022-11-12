@@ -5,13 +5,29 @@ import {
   Button,
   Center,
   Flex,
+  Heading,
+  HStack,
   List,
   ListIcon,
   ListItem,
   Spacer,
+  Stack,
+  Table,
   Text,
-  } from "@chakra-ui/react";
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+
+import {
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
+
 export const WashingResult = () => {
   const navigate = useNavigate();
 
@@ -58,8 +74,28 @@ export const WashingResult = () => {
   ];
 
   return (
-    <>
-      <List padding={3}>
+    <Box padding={3}>
+      <Heading>sens-o-wash information:</Heading>
+      <TableContainer>
+        <Table variant="simple" w="100%">
+          <Tbody>
+            <Tr>
+              <Td>Temperature:</Td>
+              <Td isNumeric>40°C</Td>
+            </Tr>
+            <Tr>
+              <Td>Speed:</Td>
+              <Td isNumeric>1200 RPM</Td>
+            </Tr>
+            <Tr>
+              <Td>pH Level:</Td>
+              <Td isNumeric>11</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
+      <Heading>Washed Items:</Heading>
+      <List>
         <ListItem>
           {items.map((i, idx) => {
             let icon = BiBlanket;
@@ -79,9 +115,7 @@ export const WashingResult = () => {
             }
 
             return (
-              <Box
-                key={idx}
-              >
+              <Box key={idx}>
                 <Flex
                   direction="row"
                   bg="gray.100"
@@ -114,6 +148,6 @@ export const WashingResult = () => {
           Scan Tag
         </Button>
       </Center>
-    </>
+    </Box>
   );
 };
