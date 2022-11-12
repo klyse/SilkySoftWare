@@ -8,9 +8,9 @@ export const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Splash />} />
 
           <Route element={<MainLayout />}>
+          <Route path="/" element={<Splash />} />
             {MainRoutes.map((route) => {
               return (
                 <Route

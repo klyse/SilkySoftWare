@@ -37,7 +37,7 @@ fetch("http://localhost:5001/tags")
     <Center>
       <Stack>
         <SiNfc size="150px" onClick={(c) => console.log(c)} />
-        <Heading textAlign="center">Scan Fabric</Heading>
+        <Heading textAlign="center">Scan Tag</Heading>
       </Stack>
     </Center>
   );
