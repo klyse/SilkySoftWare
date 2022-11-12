@@ -9,6 +9,7 @@
     "@emotion/styled": "^11.10.5",
     "@microsoft/signalr": "^6.0.7",
     "color": "^4.2.3",
+    "use-debounce": "^8.0.4",
     "framer-motion": "^7.6.5",
     "query-string": "^7.1.1",
     "react": "^18.2.0",

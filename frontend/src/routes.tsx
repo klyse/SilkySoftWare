@@ -1,3 +1,4 @@
+import { Details } from "./pages/Details";
 import { Scan as Scan } from "./pages/Scan";
 import { TagsList } from "./pages/TagsList";
 
@@ -10,15 +11,21 @@ export interface Route {
 
 export const Routes: Route[] = [
   {
-    Name: "Main",
+    Name: "Scan",
     Path: "/Scan",
     Element: <Scan />,
     isHidden: true,
   },
   {
-    Name: "Main",
+    Name: "TagsList",
     Path: "/TagsList",
     Element: <TagsList />,
+    isHidden: true,
+  },
+  {
+    Name: "Details",
+    Path: "/Details",
+    Element: <Details />,
     isHidden: true,
   },
 ];

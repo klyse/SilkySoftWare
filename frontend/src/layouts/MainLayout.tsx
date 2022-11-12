@@ -5,7 +5,7 @@ import Navbar from "../components/navbar/Navbar";
 
 export const MainLayout = () => {
   return (
-    <Flex minHeight="100vh" direction="column">
+    <Flex minHeight="90vh" direction="column">
       <Box as="header">
         <Navbar />
       </Box>
