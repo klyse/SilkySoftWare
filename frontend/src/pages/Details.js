@@ -14,6 +14,10 @@ export const Details = () => {
         <Image src={Bleach} w="50px" />
         <Image src={Iron} w="50px" />
       </HStack>
+
+      <HStack>
+        <Text></Text>
+      </HStack>
     </Stack>
   );
 };

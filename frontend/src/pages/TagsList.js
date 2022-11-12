@@ -16,6 +16,7 @@ import {
   Spacer,
   Stack,
   Text,
+  useBoolean,
   useDisclosure,
 } from "@chakra-ui/react";
 import {
@@ -38,14 +39,17 @@ export const TagsList = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tag, setTag] = useState(null);
+  const [window, setWindow] = useState();
+  const [page2, setPage2] = useBoolean();
 
   const items = [
     {
       id: "de060404",
-      material: "cotton",
+      material: "100% cotton",
       supplier: "SÜDBUND eG.",
       charge: "22/10",
       article_nr: "10871",
+      product_nr: "78912",
       customer: "Falkensteiner",
       room: "1 Left",
       dimensions: "200x190",
@@ -54,10 +58,11 @@ export const TagsList = () => {
     },
     {
       id: "66473eae",
-      material: "silk",
+      material: "100% silk",
       supplier: "SÜDBUND eG.",
       charge: "20/10",
       article_nr: "10871",
+      product_nr: "41231",
       customer: "Falkensteiner",
       room: "1 Right",
       dimensions: "200x190",
@@ -66,10 +71,11 @@ export const TagsList = () => {
     },
     {
       id: "46fd8da1",
-      material: "polyester",
+      material: "100% polyester",
       supplier: "SÜDBUND eG.",
       charge: "21/10",
       article_nr: "10871",
+      product_nr: "98124",
       customer: "Falkensteiner",
       room: "2 Center",
       dimensions: "200x190",
@@ -80,7 +86,7 @@ export const TagsList = () => {
 
   return (
     <>
-      <List>
+      <List padding={3}>
         <ListItem>
           {items.map((i, idx) => {
             let icon = BiBlanket;
@@ -110,7 +116,7 @@ export const TagsList = () => {
               >
                 <Flex
                   direction="row"
-                  bg="blue.100"
+                  bg="gray.100"
                   padding={5}
                   marginY={1}
                   borderRadius={8}
@@ -143,57 +149,100 @@ export const TagsList = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            Editing Material <i>{tag?.id}</i>
-          </ModalHeader>
+          <ModalHeader>Editing Textile Information</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Stack>
-              <HStack>
-                <Text width="100%">Production Year:</Text>
-                <Text>{tag?.year}</Text>
-              </HStack>
-              <HStack>
-                <Text>Supplier:</Text>
-                <Text width="100%" textAlign="right">
-                  {tag?.supplier}
-                </Text>
-              </HStack>
+            {!page2 && (
               <Stack>
-                <Text>Cleaning details</Text>
-                <HStack bg="gray.200" padding={1} borderRadius={5}>
-                  <Image src={Wash} w="50px" />
-                  <Image src={Dry} w="50px" />
-                  <Image src={Bleach} w="50px" />
-                  <Image src={Iron} w="50px" />
+                <HStack>
+                  <Text width="100%">Id:</Text>
+                  <Text>{tag?.id}</Text>
+                </HStack>
+                <HStack>
+                  <Text width="100%">Production Year:</Text>
+                  <Text>{tag?.year}</Text>
+                </HStack>
+                <HStack>
+                  <Text>Supplier:</Text>
+                  <Text width="100%" textAlign="right">
+                    {tag?.supplier}
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Text>Product Nr.:</Text>
+                  <Text width="100%" textAlign="right">
+                    {tag?.product_nr}
+                  </Text>
+                </HStack>
+                <Stack>
+                  <Text>Cleaning details:</Text>
+                  <HStack bg="gray.200" padding={1} borderRadius={5}>
+                    <Image src={Wash} w="50px" />
+                    <Image src={Dry} w="50px" />
+                    <Image src={Bleach} w="50px" />
+                    <Image src={Iron} w="50px" />
+                  </HStack>
+                </Stack>
+                <HStack>
+                  <Text>Material:</Text>
+                  <Text w="100%" textAlign="right">
+                    {tag?.material}
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Text w="100%">Customer:</Text>
+                  <Input placeholder={tag?.customer} />
+                </HStack>
+                <HStack>
+                  <Text w="100%">Article Nr:</Text>
+                  <Input placeholder={tag?.article_nr} />
+                </HStack>
+                <HStack>
+                  <Text w="100%">Article Type:</Text>
+                  <Select>
+                    <option>Curtain</option>
+                    <option>Pillow</option>
+                    <option>Blanket</option>
+                  </Select>
                 </HStack>
               </Stack>
+            )}
+            {page2 && (
+              <Stack>
               <HStack>
-                <Text w="100%">Material:</Text>
-                <Text>{tag?.material}</Text>
+                <Text w="100%">Building:</Text>
+                <Input placeholder="Building 14a" />
               </HStack>
               <HStack>
-                <Text w="100%">Customer:</Text>
-                <Input placeholder={tag?.customer} />
+                <Text w="100%">Room Nr:</Text>
+                <Input placeholder="42" />
               </HStack>
-              <HStack>
-                <Text w="100%">Article Nr:</Text>
-                <Input placeholder={tag?.article_nr} />
+              <Stack>
+                <Text>Position:</Text>
+              <HStack h="150px">
+                <Box h="100%" w="25%" bg={window === 0 ? "red.200": "gray.200"} onClick={() => setWindow(0)} />
+                <Box h="100%" w="50%" bg={window === 1 ? "red.200": "gray.200"} onClick={() => setWindow(1)} />
+                <Box h="100%" w="25%" bg={window === 2 ? "red.200": "gray.200"} onClick={() => setWindow(2)} />
               </HStack>
-              <HStack>
-                <Text w="100%">Room:</Text>
-                <Input placeholder={tag?.room} />
-              </HStack>
-            </Stack>
+              </Stack>
+              </Stack>
+            )}
           </ModalBody>
 
           <ModalFooter>
             <Button variant="ghost" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="blue" onClick={onClose}>
-              Save
-            </Button>
+            {page2 && (
+              <Button colorScheme="blue" onClick={onClose}>
+                Save
+              </Button>
+            )}
+            {!page2 && (
+              <Button colorScheme="blue" onClick={() => setPage2.on()}>
+                Next
+              </Button>
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>
