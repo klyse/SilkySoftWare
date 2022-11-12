@@ -73,11 +73,11 @@ export const Details = () => {
                 </Tr>
                 <Tr>
                   <Td>Customer:</Td>
-                  <Td>{tag?.values.customer}</Td>
+                  <Td><Input placeholder={tag?.values.customer}/></Td>
                 </Tr>
                 <Tr>
                   <Td>Article Nr.:</Td>
-                  <Td>{tag?.values.article_nr}</Td>
+                  <Td><Input placeholder={tag?.values.article_nr}/></Td>
                 </Tr>
                 <Tr>
                   <Td>Article Type.:</Td>
