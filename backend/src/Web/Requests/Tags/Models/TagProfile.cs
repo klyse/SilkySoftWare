@@ -5,10 +5,10 @@ using Web.Database.Entities;
 namespace Web.Requests.Documents.Models;
 
 [UsedImplicitly]
-public class DocumentProfile : Profile
+public class TagProfile : Profile
 {
-	public DocumentProfile()
+	public TagProfile()
 	{
-		CreateMap<Document, DocumentDto>();
+		CreateMap<Document, TagDto>();
 	}
 }

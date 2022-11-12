@@ -21,8 +21,10 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-export const Main = () => {
+export const TagsList = () => {
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const items = [
@@ -100,7 +102,7 @@ export const Main = () => {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
+            <Button variant="ghost" onClick={() => navigate("/Scan")}>Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

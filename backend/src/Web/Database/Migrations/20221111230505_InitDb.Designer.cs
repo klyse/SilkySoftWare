@@ -12,7 +12,7 @@ using Web.Database;
 namespace Web.Database.Migrations
 {
     [DbContext(typeof(CrazyContext))]
-    [Migration("20221111215402_InitDb")]
+    [Migration("20221111230505_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -27,9 +27,9 @@ namespace Web.Database.Migrations
 
             modelBuilder.Entity("Web.Database.Entities.Document", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTimeOffset>("CreatedDateTime")
                         .HasColumnType("datetimeoffset");

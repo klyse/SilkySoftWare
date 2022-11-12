@@ -1,4 +1,5 @@
-import { Main } from "./pages/Main";
+import { Scan as Scan } from "./pages/Scan";
+import { TagsList } from "./pages/TagsList";
 
 export interface Route {
   Name: string;
@@ -10,8 +11,14 @@ export interface Route {
 export const Routes: Route[] = [
   {
     Name: "Main",
-    Path: "/",
-    Element: <Main />,
+    Path: "/Scan",
+    Element: <Scan />,
+    isHidden: true,
+  },
+  {
+    Name: "Main",
+    Path: "/TagsList",
+    Element: <TagsList />,
     isHidden: true,
   },
 ];

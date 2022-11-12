@@ -13,14 +13,15 @@ using ILogger = Serilog.ILogger;
 namespace Web.Requests.Documents.CreateDocument;
 
 [UsedImplicitly]
-public class CreateDocumentCommand : IRequest<Results<Created<DocumentDto>, BadRequest>>
+public class CreateTagCommand : IRequest<Results<Created<TagDto>, BadRequest>>
 {
-	private static readonly ILogger Logger = Log.ForContext<CreateDocumentCommand>();
+	private static readonly ILogger Logger = Log.ForContext<CreateTagCommand>();
+
 	[FromBody]
 	public Dictionary<string, string> Values { get; set; }
 
 	[UsedImplicitly]
-	public class Handler : IRequestHandler<CreateDocumentCommand, Results<Created<DocumentDto>, BadRequest>>
+	public class Handler : IRequestHandler<CreateTagCommand, Results<Created<TagDto>, BadRequest>>
 	{
 		private readonly ICrazyContext _dbContext;
 		private readonly IMapper _mapper;
@@ -31,7 +32,7 @@ public class CreateDocumentCommand : IRequest<Results<Created<DocumentDto>, BadR
 			_mapper = mapper;
 		}
 
-		public async Task<Results<Created<DocumentDto>, BadRequest>> Handle(CreateDocumentCommand request, CancellationToken cancellationToken)
+		public async Task<Results<Created<TagDto>, BadRequest>> Handle(CreateTagCommand request, CancellationToken cancellationToken)
 		{
 			var doc = _dbContext.Documents.Add(new Document
 			{
@@ -40,7 +41,7 @@ public class CreateDocumentCommand : IRequest<Results<Created<DocumentDto>, BadR
 
 			await _dbContext.SaveChangesAsync(cancellationToken);
 
-			return TypedResults.Created($"/{doc.Entity.Id}", _mapper.Map<DocumentDto>(doc.Entity));
+			return TypedResults.Created($"/{doc.Entity.Id}", _mapper.Map<TagDto>(doc.Entity));
 		}
 	}
 }

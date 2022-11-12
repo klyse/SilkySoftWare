@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 namespace Web.Requests.Documents.Models;
 
 [UsedImplicitly]
-public struct DocumentDto
+public struct TagDto
 {
 	public Guid Id { get; set; }
 	

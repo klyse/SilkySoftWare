@@ -4,9 +4,9 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Sieve.Services;
 using Web.Database;
 using Web.Requests;
 using Web.Requests.Documents.CreateDocument;
@@ -22,7 +22,6 @@ static LoggerConfiguration ConfigureLogger(LoggerConfiguration loggerConfig)
         : "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}";
     loggerConfig
         .Enrich.FromLogContext()
-        .WriteTo.Sentry()
         .WriteTo.Console(outputTemplate: outputTemplate);
 
     return loggerConfig;
@@ -37,7 +36,6 @@ builder.Logging.ClearProviders();
 
 builder.Host.UseSerilog((context, _, loggerConfig) =>
     ConfigureLogger(loggerConfig).ReadFrom.Configuration(context.Configuration));
-builder.WebHost.UseSentry();
 
 builder.Services
     // enums should be returned as strings
@@ -48,17 +46,13 @@ builder.Services
     .AddHttpContextAccessor()
     .AddAutoMapper(typeof(Program))
     .AddMediatR(typeof(Program))
-    .AddScoped<ISieveProcessor, SieveProcessor>()
     .AddCors(c => c.AddDefaultPolicy(p => p
-        .WithOrigins(
-            new[] { "http://localhost:3000" })
-        .SetIsOriginAllowedToAllowWildcardSubdomains()
+        .WithOrigins("http://localhost:3000", "http://localhost:5000")
         .AllowAnyHeader()
         .AllowCredentials()
-        .AllowAnyMethod()
-        .SetPreflightMaxAge(TimeSpan.FromDays(1))
-    ))
-    .AddEndpointsApiExplorer();
+        .AllowAnyMethod()))
+    .AddEndpointsApiExplorer()
+    .AddSignalR();
 
 builder.Services.AddDbContext<ICrazyContext, CrazyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Db")!));
@@ -74,9 +68,17 @@ var app = builder.Build();
 app.UseSerilogRequestLogging();
 
 var documentsGroup = app.MapGroup("/tags");
-documentsGroup.MediatePost<CreateDocumentCommand, Results<Created<DocumentDto>, BadRequest>>();
-documentsGroup.MediateGet<GetDocumentsQuery, Results<Ok<PaginatedListDto<DocumentDto>>, NotFound>>();
-documentsGroup.MediatePatch<UpdateDocumentCommand, Results<Ok<DocumentDto>, NotFound, BadRequest>>("/{Id:guid}");
+documentsGroup.MediatePost<CreateTagCommand, Results<Created<TagDto>, BadRequest>>();
+documentsGroup.MediateGet<GetTagsQuery, Results<Ok<PaginatedListDto<TagDto>>, NotFound>>();
+documentsGroup.MediatePatch<UpdateTagCommand, Results<Ok<TagDto>, NotFound, BadRequest>>("/{Id}");
+documentsGroup.MapPost("/scan/{Id}",(string Id, [FromServices] IHubContext<MyHub> hub) =>
+{
+    Log.Information("Scanned {Id}", Id);
+    return hub.Clients.All.SendCoreAsync("scanned", new[] { Id });
+});
+
+
+documentsGroup.MapHub<MyHub>("/scan-hub");
 
 if (app.Environment.IsDevelopment())
     app.UseSwagger()
