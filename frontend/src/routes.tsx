@@ -1,6 +1,8 @@
 import { Details } from "./pages/Details";
-import { Scan as Scan } from "./pages/Scan";
-import { TagsList } from "./pages/TagsList";
+import { Scan } from "./pages/Scan";
+import { StartWash } from "./pages/StartWash";
+import { WashingResult } from "./pages/WashingResult";
+import { WaitForWashing } from "./pages/WaitForWashing";
 
 export interface Route {
   Name: string;
@@ -17,15 +19,27 @@ export const Routes: Route[] = [
     isHidden: true,
   },
   {
-    Name: "TagsList",
-    Path: "/TagsList",
-    Element: <TagsList />,
+    Name: "Washing Result",
+    Path: "/WashingResult",
+    Element: <WashingResult />,
     isHidden: true,
   },
   {
     Name: "Details",
     Path: "/Details",
     Element: <Details />,
+    isHidden: true,
+  },
+  {
+    Name: "Wait For Washing",
+    Path: "/Waiting",
+    Element: <WaitForWashing />,
+    isHidden: true,
+  },
+  {
+    Name: "Start Washing",
+    Path: "/StartWashingMachine",
+    Element: <StartWash />,
     isHidden: true,
   },
 ];

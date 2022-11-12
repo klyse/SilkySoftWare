@@ -4,5 +4,5 @@ import Img from "../assets/Splash.jpeg";
 
 export const Splash = () => {
     const navigate = useNavigate();
-  return <Image src={Img} onClick={() => navigate("/TagsList") } />;
+  return <Image src={Img} onClick={() => navigate("/Scan") } />;
 };

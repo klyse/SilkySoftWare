@@ -23,42 +23,13 @@ const ChakraBox = chakra(motion.div, {
 
 export const Scan = () => {
   const navigate = useNavigate();
-
-  const [connection, setConnection] = useState(null);
   const [scanned, setScanned] = useBoolean();
-
-  fetch("http://localhost:5001/tags");
-
-  useEffect(() => {
-    const _connection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5001/tags/scan-hub")
-      .configureLogging(LogLevel.Information)
-      .build();
-
-    async function start() {
-      try {
-        await _connection.start();
-        console.log("SignalR Connected.");
-      } catch (err) {
-        console.log(err);
-        setTimeout(start, 5000);
-      }
-    }
-
-    start();
-
-    _connection.on("scanned", (id) => {
-      setScanned.on();
-    });
-
-    setConnection(_connection);
-  }, [setScanned]);
 
   useEffect(() => {
     if (scanned)
       setTimeout(() => {
-        navigate("/details");
-      }, 3000);
+        navigate("/Details");
+      }, 2000);
   }, [navigate, scanned]);
 
   return (
@@ -74,22 +45,33 @@ export const Scan = () => {
           repeat: Infinity,
           repeatType: "loop",
         }}
+        onClick={() => setScanned.on()}
       >
         {!scanned && (
           <Stack>
-            <SiNfc size="150px" onClick={(c) => navigate("/details")} />
+            <SiNfc size="150px" />
             <Heading textAlign="center">Scan Tag</Heading>
           </Stack>
         )}
-        {scanned && (
-          <Stack>
-            <Spinner size="150px" onClick={() => navigate("/details")} />
-            <Heading textAlign="center">
-              Successfully scanned NFC. Reading from database
-            </Heading>
-          </Stack>
-        )}
       </ChakraBox>
+      {scanned && (
+        <Stack>
+          <Center>
+            <Spinner
+              alignSelf="center"
+              thickness="6px"
+              w="200px"
+              h="200px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+            />
+          </Center>
+          <Heading textAlign="center">
+            Successfully scanned NFC. Reading from database
+          </Heading>
+        </Stack>
+      )}
     </Center>
   );
 };
