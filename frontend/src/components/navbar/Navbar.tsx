@@ -9,6 +9,7 @@ import {
   HStack,
   Icon,
   IconButton,
+  Image,
   Link,
   Menu,
   MenuButton,
@@ -16,11 +17,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { ReactComponent as LogoComponent } from "../../assets/logo.svg";
+import Logo from "../../assets/logo.png";
 import { ReactComponent as AvatarSvg } from "../../assets/avatar.svg";
 import { MenuRoutes } from "../../routes";
-
-const Logo = chakra(LogoComponent);
 
 export default function Navbar() {
 
@@ -35,7 +34,7 @@ export default function Navbar() {
         />
         <HStack spacing={8} alignItems={"center"}>
           <Link as={RouterLink} to="/">
-            <Icon as={GiWashingMachine} fill={useColorModeValue("black", "white")} />
+            <Image src={Logo} width="50px"/>
           </Link>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {MenuRoutes.map((route) => (
