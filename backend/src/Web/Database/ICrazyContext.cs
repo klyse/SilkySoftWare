@@ -6,7 +6,7 @@ namespace Web.Database;
 
 public interface ICrazyContext
 {
-	DbSet<Document> Documents { get; }
+	DbSet<Tag> Documents { get; }
 	DbSet<TEntity> Set<TEntity>() where TEntity : class;
 	EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 

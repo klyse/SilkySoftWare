@@ -27,51 +27,24 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 export const WashingResult = () => {
-  const navigate = useNavigate();
+  const [tags, setTags] = useState(null);
 
-  const items = [
-    {
-      id: "de060404",
-      material: "100% cotton",
-      supplier: "SÜDBUND eG.",
-      charge: "22/10",
-      article_nr: "10871",
-      product_nr: "78912",
-      customer: "Falkensteiner",
-      room: "1 Left",
-      dimensions: "200x190",
-      type: "curtain",
-      year: 2019,
-    },
-    {
-      id: "66473eae",
-      material: "100% silk",
-      supplier: "SÜDBUND eG.",
-      charge: "20/10",
-      article_nr: "10871",
-      product_nr: "41231",
-      customer: "Falkensteiner",
-      room: "1 Right",
-      dimensions: "200x190",
-      type: "pillow",
-      year: 2022,
-    },
-    {
-      id: "46fd8da1",
-      material: "100% polyester",
-      supplier: "SÜDBUND eG.",
-      charge: "21/10",
-      article_nr: "10871",
-      product_nr: "98124",
-      customer: "Falkensteiner",
-      room: "2 Center",
-      dimensions: "200x190",
-      type: "blanket",
-      year: 2011,
-    },
-  ];
+  useEffect(() => {
+    fetch(`http://172.20.10.2:5001/tags`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then((t) => {
+      t.json().then((b) => {
+        setTags(b.data);
+        console.log(b.data);
+      });
+    });
+  }, []);
 
   return (
     <Box padding={3}>
@@ -97,10 +70,10 @@ export const WashingResult = () => {
       <Heading>Washed Items:</Heading>
       <List>
         <ListItem>
-          {items.map((i, idx) => {
+          {tags?.map((i, idx) => {
             let icon = BiBlanket;
 
-            switch (i.type) {
+            switch (i.values.type) {
               case "blanket":
                 icon = BiBlanket;
                 break;
@@ -124,13 +97,13 @@ export const WashingResult = () => {
                   borderRadius={8}
                 >
                   <ListIcon alignSelf="center" as={icon} />
-                  <Text w="90px">{i.id}</Text>
-                  <Text w="90px" fontWeight="bold">
-                    {i.room}
+                  <Text w="56px">{i.values.type}</Text>
+                  <Text w="95px" fontWeight="bold">
+                    #{i.tagId}
                   </Text>
                   <Spacer />
                   <Text>
-                    year: <b>{i.year}</b>
+                    Wash cycles: <b>{i.values.cycles} ✅</b>
                   </Text>
                 </Flex>
               </Box>
@@ -138,16 +111,6 @@ export const WashingResult = () => {
           })}
         </ListItem>
       </List>
-      <Center
-        position="absolute"
-        bottom="-70px"
-        marginLeft="50%"
-        transform="translate(-50%)"
-      >
-        <Button onClick={() => navigate("/Scan")} size="lg">
-          Scan Tag
-        </Button>
-      </Center>
     </Box>
   );
 };

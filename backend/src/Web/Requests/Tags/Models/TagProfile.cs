@@ -2,13 +2,13 @@ using AutoMapper;
 using JetBrains.Annotations;
 using Web.Database.Entities;
 
-namespace Web.Requests.Documents.Models;
+namespace Web.Requests.Tags.Models;
 
 [UsedImplicitly]
 public class TagProfile : Profile
 {
 	public TagProfile()
 	{
-		CreateMap<Document, TagDto>();
+		CreateMap<Tag, TagDto>();
 	}
 }

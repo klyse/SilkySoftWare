@@ -12,7 +12,7 @@ using Web.Database;
 namespace Web.Database.Migrations
 {
     [DbContext(typeof(CrazyContext))]
-    [Migration("20221111230505_InitDb")]
+    [Migration("20221112051750_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -25,11 +25,11 @@ namespace Web.Database.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Web.Database.Entities.Document", b =>
+            modelBuilder.Entity("Web.Database.Entities.Tag", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("CreatedDateTime")
                         .HasColumnType("datetimeoffset");
@@ -39,6 +39,10 @@ namespace Web.Database.Migrations
 
                     b.Property<DateTimeOffset>("ModifiedDateTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("TagId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Values")
                         .IsRequired()

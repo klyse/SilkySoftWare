@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web.Database;
-using Web.Requests.Documents.Models;
+using Web.Requests.Tags.Models;
 
-namespace Web.Requests.Documents.UpdateDocument;
+namespace Web.Requests.Tags.UpdateDocument;
 
 [UsedImplicitly]
 public class UpdateTagCommand : IRequest<Results<Ok<TagDto>, NotFound, BadRequest>>

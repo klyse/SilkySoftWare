@@ -6,9 +6,9 @@ using Web.Database.Entities;
 
 namespace Web.Database.Configuration;
 
-public class DocumentsConfiguration : IEntityTypeConfiguration<Document>
+public class DocumentsConfiguration : IEntityTypeConfiguration<Tag>
 {
-	public void Configure(EntityTypeBuilder<Document> builder)
+	public void Configure(EntityTypeBuilder<Tag> builder)
 	{
 		builder.ToTable("tags")
 			.HasKey(c => c.Id);

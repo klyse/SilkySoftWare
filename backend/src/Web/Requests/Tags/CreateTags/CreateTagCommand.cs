@@ -3,14 +3,13 @@ using JetBrains.Annotations;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Web.Database;
 using Web.Database.Entities;
-using Web.Requests.Documents.Models;
+using Web.Requests.Tags.Models;
 using ILogger = Serilog.ILogger;
 
-namespace Web.Requests.Documents.CreateDocument;
+namespace Web.Requests.Tags.CreateTags;
 
 [UsedImplicitly]
 public class CreateTagCommand : IRequest<Results<Created<TagDto>, BadRequest>>
@@ -34,7 +33,7 @@ public class CreateTagCommand : IRequest<Results<Created<TagDto>, BadRequest>>
 
 		public async Task<Results<Created<TagDto>, BadRequest>> Handle(CreateTagCommand request, CancellationToken cancellationToken)
 		{
-			var doc = _dbContext.Documents.Add(new Document
+			var doc = _dbContext.Documents.Add(new Tag
 			{
 				Values = request.Values
 			});

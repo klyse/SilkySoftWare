@@ -9,7 +9,7 @@ public class CrazyContext : DbContext, ICrazyContext
 	{
 	}
 
-	public DbSet<Document> Documents => Set<Document>();
+	public DbSet<Tag> Documents => Set<Tag>();
 	public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
 	{
 		AddTimestamps();

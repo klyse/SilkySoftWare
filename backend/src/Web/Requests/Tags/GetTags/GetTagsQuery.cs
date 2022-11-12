@@ -3,13 +3,12 @@ using AutoMapper.QueryableExtensions;
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web.Database;
-using Web.Requests.Documents.Models;
 using Web.Requests.Models;
+using Web.Requests.Tags.Models;
 
-namespace Web.Requests.Documents.GetDocuments;
+namespace Web.Requests.Tags.GetTags;
 
 [UsedImplicitly]
 public class GetTagsQuery : IRequest<Results<Ok<PaginatedListDto<TagDto>>, NotFound>>

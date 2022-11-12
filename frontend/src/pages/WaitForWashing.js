@@ -1,24 +1,15 @@
 import { Center, Spinner, Stack, Text } from "@chakra-ui/react";
-import { SiNfc } from "react-icons/si";
-import {
-  chakra,
-  Heading,
-  shouldForwardProp,
-  useBoolean,
-} from "@chakra-ui/react";
+
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import { useEffect, useState } from "react";
-import { isValidMotionProp, motion } from "framer-motion";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const WaitForWashing = () => {
-  const [connection, setConnection] = useState(null);
-  const [scanned, setScanned] = useBoolean();
   const navigate = useNavigate();
 
   useEffect(() => {
     const _connection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5001/tags/scan-hub")
+      .withUrl("http://172.20.10.2:5001/tags/scan-hub")
       .configureLogging(LogLevel.Information)
       .build();
 
@@ -37,9 +28,7 @@ export const WaitForWashing = () => {
     _connection.on("scanned", (id) => {
       navigate("/WashingResult");
     });
-
-    setConnection(_connection);
-  }, [navigate, setScanned]);
+  }, [navigate]);
 
   return (
     <Center paddingTop={10}>

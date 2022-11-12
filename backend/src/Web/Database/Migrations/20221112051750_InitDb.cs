@@ -15,7 +15,8 @@ namespace Web.Database.Migrations
                 name: "tags",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TagId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Values = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),

@@ -18,13 +18,9 @@ import Dry from "../assets/Trommeltrocknen_1.svg";
 import Bleach from "../assets/Nicht_bleichen_v2.svg";
 import Iron from "../assets/Nicht_bügeln.svg";
 import {
-  Thead,
   Tbody,
-  Tfoot,
   Tr,
-  Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
 
@@ -147,8 +143,7 @@ export const Details = () => {
       {!page2 && (
         <Button
           marginY={4}
-          position={"absolute"}
-          right={4}
+          float="right"
           colorScheme="blue"
           onClick={() => setPage2.on()}
         >
@@ -157,21 +152,25 @@ export const Details = () => {
       )}
       {page2 && (
         <>
-          <Button
-            marginY={4}
-            position={"absolute"}
-            left={4}
-            colorScheme="blue"
-            onClick={() => setPage2.off()}
-          >
+          <Button marginY={4} colorScheme="blue" onClick={() => setPage2.off()}>
             Back
           </Button>
           <Button
             marginY={4}
-            position={"absolute"}
-            right={4}
+            float="right"
             colorScheme="blue"
-            onClick={() => navigate("/StartWashingMachine")}
+            onClick={() => {
+              fetch(`http://172.20.10.2:5001/tags/${tag?.id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    "customer": "Customer 1"
+                }),
+                headers: {
+                  'Content-type': 'application/json; charset=UTF-8',
+                },
+              });
+              navigate("/StartWashingMachine");
+            }}
           >
             Save
           </Button>

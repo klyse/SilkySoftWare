@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Web.Database;
 using Web.Requests;
-using Web.Requests.Documents.CreateDocument;
-using Web.Requests.Documents.GetDocuments;
-using Web.Requests.Documents.Models;
-using Web.Requests.Documents.UpdateDocument;
 using Web.Requests.Models;
+using Web.Requests.Tags.CreateTags;
+using Web.Requests.Tags.GetTags;
+using Web.Requests.Tags.Models;
+using Web.Requests.Tags.UpdateDocument;
 
 static LoggerConfiguration ConfigureLogger(LoggerConfiguration loggerConfig)
 {
@@ -47,7 +47,7 @@ builder.Services
     .AddAutoMapper(typeof(Program))
     .AddMediatR(typeof(Program))
     .AddCors(c => c.AddDefaultPolicy(p => p
-        .WithOrigins("http://localhost:3000", "http://localhost:5000")
+        .WithOrigins("http://localhost:3000", "http://localhost:5000", "http://172.20.10.2:3000")
         .AllowAnyHeader()
         .AllowCredentials()
         .AllowAnyMethod()))

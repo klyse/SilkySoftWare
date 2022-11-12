@@ -1,9 +1,6 @@
-using JetBrains.Annotations;
+namespace Web.Database.Entities;
 
-namespace Web.Requests.Tags.Models;
-
-[UsedImplicitly]
-public struct TagDto
+public class Tag : BaseEntity
 {
 	public Guid Id { get; set; }
 	public string? TagId { get; set; }

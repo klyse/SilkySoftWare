@@ -8,8 +8,7 @@ import {
   Stack,
   useBoolean,
 } from "@chakra-ui/react";
-import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { isValidMotionProp, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
