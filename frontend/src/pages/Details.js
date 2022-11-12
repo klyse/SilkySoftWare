@@ -12,7 +12,7 @@ import {
   useBoolean,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Wash from "../assets/Waschen_30.svg";
 import Dry from "../assets/Trommeltrocknen_1.svg";
 import Bleach from "../assets/Nicht_bleichen_v2.svg";
@@ -28,20 +28,20 @@ export const Details = () => {
   const navigate = useNavigate();
   const [window, setWindow] = useState();
   const [page2, setPage2] = useBoolean();
+  const [tag, setTag] = useState(null);
 
-  const tag = {
-    id: "de060404",
-    material: "100% cotton",
-    supplier: "SÜDBUND eG.",
-    charge: "22/10",
-    article_nr: "10871",
-    product_nr: "78912",
-    customer: "Falkensteiner",
-    room: "1 Left",
-    dimensions: "200x190",
-    type: "curtain",
-    year: 2019,
-  };
+  useEffect(() => {
+    fetch(`http://172.20.10.2:5001/tags`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then((t) => {
+      t.json().then((b) => {
+        setTag(b.data[0]);
+      });
+    });
+  }, []);
 
   return (
     <Box padding={3}>
@@ -53,31 +53,31 @@ export const Details = () => {
               <Tbody>
                 <Tr>
                   <Td>Id:</Td>
-                  <Td>{tag?.id}</Td>
+                  <Td>{tag?.tagId}</Td>
                 </Tr>
                 <Tr>
                   <Td>Production Year:</Td>
-                  <Td>{tag?.year}</Td>
+                  <Td>{tag?.values.year}</Td>
                 </Tr>
                 <Tr>
                   <Td>Supplier:</Td>
-                  <Td>{tag?.supplier}</Td>
+                  <Td>{tag?.values.supplier}</Td>
                 </Tr>
                 <Tr>
                   <Td>Product Nr.:</Td>
-                  <Td>{tag?.product_nr}</Td>
+                  <Td>{tag?.values.product_nr}</Td>
                 </Tr>
                 <Tr>
                   <Td>Material:</Td>
-                  <Td>{tag?.material}</Td>
+                  <Td>{tag?.values.material}</Td>
                 </Tr>
                 <Tr>
                   <Td>Customer:</Td>
-                  <Td>{tag?.customer}</Td>
+                  <Td>{tag?.values.customer}</Td>
                 </Tr>
                 <Tr>
                   <Td>Article Nr.:</Td>
-                  <Td>{tag?.article_nr}</Td>
+                  <Td>{tag?.values.article_nr}</Td>
                 </Tr>
                 <Tr>
                   <Td>Article Type.:</Td>
