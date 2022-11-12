@@ -34,7 +34,7 @@ export default function Navbar() {
         />
         <HStack spacing={8} alignItems={"center"}>
           <Link as={RouterLink} to="/">
-            <Image src={Logo} width="50px"/>
+            <Image src={Logo} width="30px"/>
           </Link>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {MenuRoutes.map((route) => (
