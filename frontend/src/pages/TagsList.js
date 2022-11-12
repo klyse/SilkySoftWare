@@ -128,7 +128,6 @@ export const TagsList = () => {
       <Center
         position="absolute"
         bottom="-70px"
-        å
         marginLeft="50%"
         transform="translate(-50%)"
       >
