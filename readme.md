@@ -3,6 +3,7 @@
 Hackathon project page: https://hackathon.bz.it/project/silksoftware
 
 Authors:
+
 Mira
 
 @urstruktur
